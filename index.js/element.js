@@ -26,10 +26,9 @@ const initialCards = [
 ]; 
 
 const cardsConteiner = document.querySelector('.element');
-const templateElement = document.querySelector('#template-element');
+const templateElement = document.querySelector('.template-element');
 
-const popupAddTitle = document.querySelector('.popup__input_type_title');
-const popupAddImage = document.querySelector('.popup__input_type_image');
+
 
 const hendlePopupFoto = document.querySelector('.full-img__image');
 const fullFotoPopup = document.querySelector('.full-img');
@@ -39,19 +38,29 @@ let fullFotoTitle = document.querySelector('.full-img__title');
 function renderList () {
     const itemList = initialCards.map(composeItem);
     cardsConteiner.append(...itemList);
-    inputImageAdd()
+    
 }
 // Темплей
 function composeItem (item){
     const newItem = templateElement.content.cloneNode(true);
     const titleElement = newItem.querySelector('.element__title');
     const cardsImg = newItem.querySelector('.element__foto');
+    cardsImg.addEventListener('click', function (event){
+        event.preventDefault();
+        fullFotoPopup.classList.add('full-img_type_open');
+        hendlePopupFoto.src = item.link;
+        hendlePopupFoto.alt = item.name;
+        fullFotoTitle.textContent = item.name;
+    
+    });
     newItem.querySelector('.element__like').addEventListener('click', function (evt) {
         evt.target.classList.toggle('element__like_active')});
     const buttonRemove = newItem.querySelector('.element__remove');
     buttonRemove.addEventListener('click',removeItem);
     titleElement.textContent = item.name;
     cardsImg.src = item.link;
+    return newItem;
+};
     
     // Удаление карточек
 function removeItem (event){
@@ -60,15 +69,7 @@ function removeItem (event){
     targetItem.remove();
 }
    //поп-ап фото
-cardsImg.addEventListener('click', function (event){
-    event.preventDefault();
-    fullFotoPopup.classList.add('full-img_type_open');
-    hendlePopupFoto.src = item.link;
-    hendlePopupFoto.alt = item.name;
-    fullFotoTitle.textContent = item.name;
 
-});
 
-return newItem;
-};
+
 renderList();

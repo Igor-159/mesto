@@ -13,6 +13,11 @@ const popupInputHobbyNode = document.querySelector('.popup__input_type_hobby');
 const buttonImageAdd = document.querySelector('.profile__image-edit');
 const popupCardImage = document.querySelector('.popup-image');
 
+const popupAddTitle = document.querySelector('.popup__input_type_title');
+const popupAddImage = document.querySelector('.popup__input_type_image');
+
+const buttonPopupAddCard = document.querySelector ('.popup-addNewCard')
+
 //Вызов поп-ап
 function popupOpen(transmitted) {
     transmitted.classList.add('popup_visible');
@@ -32,15 +37,25 @@ function hendleFormSubmit(event) {
     handlePopupCloseClick();
 
 };
+
+
+function bindAddItemListener(){
+    const addButtonElementCard = document.querySelector('.popup-addNewCard')
+    addButtonElementCard.addEventListener('click',inputImageAdd)
+
+}
+
+
+
 //
 function inputImageAdd () {
     debugger
-    const popupAddTitle = popupAddTitle.value;
-    const popupAddImage = popupAddImage.value;
-    const newItemHtml = composeItem ({name:popupAddTitle, link:popupAddImage});
+    const newPopupAddTitle = popupAddTitle.value;
+    const newPopupAddImage = popupAddImage.value;
+    const newItemHtml = composeItem ({name:newPopupAddTitle, link:newPopupAddImage});
     cardsConteiner.prepend(newItemHtml);
-    titleElement.value = '';
-    cardsImg.value = '';
+    newPopupAddTitle.value = '';
+    newPopupAddImage.value = '';
 };
 
 //ПОПАП редактирования профиля
@@ -63,3 +78,6 @@ popupCloseNodeCardsImg.addEventListener('click', function () {
 //Сабмит событие
 popupFormNode.addEventListener('submit',hendleFormSubmit);
 popupFormNodeImage.addEventListener('submit', hendleFormSubmit,);
+
+
+bindAddItemListener()
